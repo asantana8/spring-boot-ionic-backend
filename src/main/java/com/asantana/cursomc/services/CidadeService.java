@@ -16,7 +16,7 @@ public class CidadeService {
 	public Cidade buscar(Integer id) {
 		Cidade obj = repo.findOne(id);
 		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cidade.class.getName()); 
+			throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id + ", Tipo: " + Cidade.class.getName()); 
 		}
 		return obj;
 	}
