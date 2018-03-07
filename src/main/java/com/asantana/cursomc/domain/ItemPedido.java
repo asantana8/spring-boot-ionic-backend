@@ -2,7 +2,6 @@ package com.asantana.cursomc.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 

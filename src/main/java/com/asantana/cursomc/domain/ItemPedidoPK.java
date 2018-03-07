@@ -46,6 +46,7 @@ public class ItemPedidoPK  implements Serializable{
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
