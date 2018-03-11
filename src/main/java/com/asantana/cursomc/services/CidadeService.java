@@ -31,6 +31,11 @@ public class CidadeService {
 		obj.setId(null);
 		return repo.save(obj);
 	}
+
+	public Cidade update(Cidade obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
 	
 	
 

@@ -3,11 +3,10 @@ package com.asantana.cursomc.resource;
 import java.net.URI;
 import java.util.List;
 
-import javax.servlet.Servlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +39,14 @@ public class CidadeResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-		
+		return ResponseEntity.created(uri).build();		
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Cidade obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();		
 	}
 	
 }
