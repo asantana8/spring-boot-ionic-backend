@@ -13,7 +13,7 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository repo;
 	
-	public Cidade buscar(Integer id) {
+	public Cidade find(Integer id) {
 		Cidade obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id + ", Tipo: " + Cidade.class.getName()); 

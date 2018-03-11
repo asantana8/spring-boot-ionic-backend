@@ -19,7 +19,7 @@ public class CidadeResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {		
-		Cidade obj = service.buscar(id);
+		Cidade obj = service.find(id);
 		return ResponseEntity.ok(obj);		
 	}
 }
