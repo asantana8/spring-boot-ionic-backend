@@ -1,5 +1,7 @@
 package com.asantana.cursomc.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,16 @@ public class CidadeService {
 		}
 		return obj;
 	}
+
+	public List<Cidade> findAll() {
+		return repo.findAll();
+	}
+
+	public Cidade insert(Cidade obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	
 
 }

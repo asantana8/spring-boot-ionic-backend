@@ -2,27 +2,27 @@ package com.asantana.cursomc.dto;
 
 import java.io.Serializable;
 
-import com.asantana.cursomc.domain.Categoria;
+import com.asantana.cursomc.domain.Estado;
 
-public class CategoriaDTO  implements Serializable{
+public class EstadoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;	
+	private Integer id;
 	private String nome;
 	
-	public CategoriaDTO() {
-		
-	}
-	
-	public CategoriaDTO(Categoria obj) {
-		id = obj.getId();
-		nome = obj.getNome();
+	public EstadoDTO() {		
 	}
 
-	public CategoriaDTO(Integer id, String nome) {
+	public EstadoDTO(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+	
+	public EstadoDTO(Estado obj) {
+		super();
+		this.id = obj.getId();
+		this.nome = obj.getNome();
 	}
 
 	public Integer getId() {
