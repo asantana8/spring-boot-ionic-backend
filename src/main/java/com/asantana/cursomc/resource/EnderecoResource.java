@@ -2,9 +2,6 @@ package com.asantana.cursomc.resource;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,53 +14,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.asantana.cursomc.domain.Categoria;
-import com.asantana.cursomc.dto.CategoriaDTO;
-import com.asantana.cursomc.services.CategoriaService;
+import com.asantana.cursomc.domain.Endereco;
+import com.asantana.cursomc.dto.EnderecoDTO;
+import com.asantana.cursomc.services.EnderecoService;
 
 @RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResource {
+@RequestMapping(value="/enderecos")
+public class EnderecoResource {
 
 	@Autowired
-	private CategoriaService service;
+	private EnderecoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Categoria> find(@PathVariable Integer id) {		
-		Categoria obj = service.find(id);
+	public ResponseEntity<Endereco> find(@PathVariable Integer id) {		
+		Endereco obj = service.find(id);
 		return ResponseEntity.ok(obj);		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<CategoriaDTO>> findAll() {		
-		List<Categoria> list = service.findAll();
-		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok(listDto);		
+	public ResponseEntity<List<Endereco>> findAll() {		
+		List<Endereco> obj = service.findAll();
+		return ResponseEntity.ok(obj);		
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<CategoriaDTO>> findPage(
+	public ResponseEntity<Page<EnderecoDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="cidade") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {		
-		Page<Categoria> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));
+		Page<Endereco> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<EnderecoDTO> listDto = list.map(obj -> new EnderecoDTO(obj));
 		return ResponseEntity.ok(listDto);		
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> inserir(@Valid @RequestBody CategoriaDTO objDto){
-		Categoria obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> inserir(@RequestBody Endereco obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(objDto.getId()).toUri();
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id){
-		Categoria obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> update(@RequestBody Endereco obj, @PathVariable Integer id){
 		obj.setId(id);
 		obj = service.update(obj);		
 		return ResponseEntity.noContent().build();
@@ -74,5 +68,4 @@ public class CategoriaResource {
 		service.delete(id);		
 		return ResponseEntity.noContent().build();
 	}
-	
 }

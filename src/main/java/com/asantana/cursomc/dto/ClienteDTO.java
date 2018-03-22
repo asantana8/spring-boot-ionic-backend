@@ -3,6 +3,7 @@ package com.asantana.cursomc.dto;
 import java.io.Serializable;
 
 import com.asantana.cursomc.domain.Cliente;
+import com.asantana.cursomc.domain.enums.TipoCliente;
 
 public class ClienteDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -16,13 +17,13 @@ public class ClienteDTO  implements Serializable{
 	public ClienteDTO() {		
 	}
 			
-	public ClienteDTO(Integer id, String nome, String email, String cpfOuCnpj, Integer tipo) {
+	public ClienteDTO(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo;
+		this.tipo = tipo.getCod();
 	}
 	
 	public ClienteDTO(Cliente obj) {
@@ -31,7 +32,7 @@ public class ClienteDTO  implements Serializable{
 		this.nome = obj.getNome();
 		this.email = obj.getEmail();
 		this.cpfOuCnpj = obj.getCpfOuCnpj();
-		//tipo???
+		this.tipo = obj.getTipo().getCod();
 	}
 
 	public String getEmail() {

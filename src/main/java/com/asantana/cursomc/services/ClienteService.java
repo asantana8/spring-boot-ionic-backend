@@ -1,5 +1,7 @@
 package com.asantana.cursomc.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,10 @@ public class ClienteService {
 			throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()); 
 		}
 		return obj;
+	}
+
+	public List<Cliente> findAll() {		
+		return repo.findAll();
 	}
 
 }

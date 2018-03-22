@@ -3,7 +3,6 @@ package com.asantana.cursomc.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.asantana.cursomc.domain.Pagamento;
 import com.asantana.cursomc.domain.PagamentoComBoleto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 

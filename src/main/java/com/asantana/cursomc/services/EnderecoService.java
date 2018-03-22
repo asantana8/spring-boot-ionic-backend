@@ -9,52 +9,53 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.asantana.cursomc.domain.Pedido;
-import com.asantana.cursomc.repositories.PedidoRepository;
+import com.asantana.cursomc.domain.Endereco;
+import com.asantana.cursomc.repositories.EnderecoRepository;
 import com.asantana.cursomc.services.exceptions.DataIntegrityException;
 import com.asantana.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class PedidoService {
+public class EnderecoService {
 	
 	@Autowired
-	private PedidoRepository repo;
+	private EnderecoRepository repo;
 	
-	public Pedido find(Integer id) {
-		Pedido obj = repo.findOne(id);
+	public Endereco find(Integer id) {
+		Endereco obj = repo.findOne(id);
 		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()); 
+			throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()); 
 		}
 		return obj;
 	}
-
-	public List<Pedido> findAll() {
+			
+	public List<Endereco> findAll() {
 		return repo.findAll();
 	}
-
-	public Pedido insert(Pedido obj) {
+	
+	public Page<Endereco> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
+	}
+	
+	public Endereco insert(Endereco obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-	
-	public Pedido update(Pedido obj) {
+
+	public Endereco update(Endereco obj) {
 		find(obj.getId());
 		return repo.save(obj);
 	}
-	
+
 	public void delete(Integer id) {
 		find(id);
 		try {
 			repo.delete(id);			
 		}
 		catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir um PEDIDO que possui ITENS!");
-		}		
+			throw new DataIntegrityException("Não é possível excluir uma CATEGORIA que possui PRODUTOS!");
+		}
+		
 	}
-
-	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAll(pageRequest);
-	}
-
+	
 }
