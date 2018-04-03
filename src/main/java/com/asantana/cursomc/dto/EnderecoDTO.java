@@ -2,6 +2,9 @@ package com.asantana.cursomc.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.asantana.cursomc.domain.Cidade;
 import com.asantana.cursomc.domain.Endereco;
 
@@ -9,7 +12,13 @@ public class EnderecoDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 4000 caracteres")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=1, max=9, message="O tamanho deve ser entre 1 e 9 caracteres")
 	private String numero;
 	private String complemento;
 	private String bairro;

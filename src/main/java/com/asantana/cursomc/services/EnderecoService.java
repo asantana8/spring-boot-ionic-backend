@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.asantana.cursomc.domain.Endereco;
+import com.asantana.cursomc.dto.EnderecoDTO;
 import com.asantana.cursomc.repositories.EnderecoRepository;
 import com.asantana.cursomc.services.exceptions.DataIntegrityException;
 import com.asantana.cursomc.services.exceptions.ObjectNotFoundException;
@@ -56,6 +57,10 @@ public class EnderecoService {
 			throw new DataIntegrityException("Não é possível excluir uma CATEGORIA que possui PRODUTOS!");
 		}
 		
+	}
+
+	public Endereco fromDTO(EnderecoDTO objDto) { 
+		return new Endereco(objDto.getId(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), null, null);
 	}
 	
 }

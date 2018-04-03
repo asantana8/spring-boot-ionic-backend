@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.asantana.cursomc.domain.Cidade;
+import com.asantana.cursomc.dto.CidadeDTO;
 import com.asantana.cursomc.repositories.CidadeRepository;
 import com.asantana.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -36,7 +37,9 @@ public class CidadeService {
 		find(obj.getId());
 		return repo.save(obj);
 	}
-	
-	
+
+	public Cidade fromDto(CidadeDTO objDto) {
+		return new Cidade(objDto.getId(), objDto.getNome(), objDto.getEstado());
+	}	
 
 }

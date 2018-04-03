@@ -2,6 +2,9 @@ package com.asantana.cursomc.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.asantana.cursomc.domain.Cidade;
 import com.asantana.cursomc.domain.Estado;
 
@@ -14,7 +17,11 @@ public class CidadeDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=3, max=100, message="Precisa ter entre 3 e 100 caracteres")
 	private String nome;
+	
 	private Estado estado;
 	
 	public CidadeDTO() {		
