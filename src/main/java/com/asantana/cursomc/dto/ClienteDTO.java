@@ -10,6 +10,7 @@ public class ClienteDTO  implements Serializable{
 	
 	private Integer id;
 	private String nome;
+	private String cnfOuCnpj;
 	private String email;
 	private Integer tipo;
 	
@@ -64,6 +65,12 @@ public class ClienteDTO  implements Serializable{
 		this.nome = nome;
 	}
 	
+	public String getCnfOuCnpj() {
+		return cnfOuCnpj;
+	}
 	
+	public void setCnfOuCnpj(String cnfOuCnpj) {
+		this.cnfOuCnpj = cnfOuCnpj;
+	}	
 
 }

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.asantana.cursomc.domain.Cliente;
 import com.asantana.cursomc.dto.ClienteDTO;
+import com.asantana.cursomc.dto.ClienteNewDTO;
 import com.asantana.cursomc.services.ClienteService;
 
 @RestController
@@ -27,6 +28,7 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
+		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) {		
 		Cliente obj = service.find(id);
@@ -51,11 +53,11 @@ public class ClienteResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteDTO objDto){
+	public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteNewDTO objDto){
 		Cliente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(objDto.getId()).toUri();
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

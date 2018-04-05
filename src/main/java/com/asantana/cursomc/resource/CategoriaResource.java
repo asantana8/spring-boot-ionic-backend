@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.asantana.cursomc.domain.Categoria;
 import com.asantana.cursomc.dto.CategoriaDTO;
+import com.asantana.cursomc.repositories.EnderecoRepository;
 import com.asantana.cursomc.services.CategoriaService;
 
 @RestController

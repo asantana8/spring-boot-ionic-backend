@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.asantana.cursomc.domain.Produto;
+import com.asantana.cursomc.dto.ProdutoDTO;
 import com.asantana.cursomc.repositories.ProdutoRepository;
 import com.asantana.cursomc.services.exceptions.DataIntegrityException;
 import com.asantana.cursomc.services.exceptions.ObjectNotFoundException;
@@ -41,10 +42,11 @@ public class ProdutoService {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-
+	
 	public Produto update(Produto obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Produto newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -56,6 +58,15 @@ public class ProdutoService {
 			throw new DataIntegrityException("Não é possível excluir um PRODUTO que possui ITENS!");
 		}
 		
-	}	
+	}
+
+	public Produto fromDTO(ProdutoDTO objDto) {
+		return new Produto(objDto.getId(), objDto.getNome(), objDto.getPreco());
+	}
+	
+	private void updateData(Produto newObj, Produto obj) {
+		newObj.setNome(obj.getNome()==null ? newObj.getNome() : obj.getNome());
+		newObj.setPreco(obj.getPreco()==null ? newObj.getPreco() : obj.getPreco());
+	}
 
 }

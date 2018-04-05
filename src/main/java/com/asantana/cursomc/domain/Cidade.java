@@ -30,7 +30,7 @@ public class Cidade implements Serializable{
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.estado = estado;
+		this.estado = (estado == null) ? null : estado;
 	}
 
 	public Integer getId() {

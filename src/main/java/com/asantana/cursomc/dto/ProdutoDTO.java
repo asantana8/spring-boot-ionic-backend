@@ -1,8 +1,10 @@
 package com.asantana.cursomc.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.asantana.cursomc.domain.Categoria;
 import com.asantana.cursomc.domain.Produto;
@@ -11,19 +13,22 @@ public class ProdutoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String nome;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=2, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+	private String nome;			
 	private Double preco;
-	private List<Categoria> categorias = new ArrayList<>();
+	private String categoria;
 	
 	public ProdutoDTO() {		
 	}
 
-	public ProdutoDTO(Integer id, String nome, Double preco, List<Categoria> categorias) {
+	public ProdutoDTO(Integer id, String nome, Double preco, String categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
-		this.categorias = categorias;
+		this.setCategoria(categoria);
 	}
 	
 	public ProdutoDTO(Produto obj) {
@@ -31,7 +36,8 @@ public class ProdutoDTO implements Serializable{
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.preco = obj.getPreco();
-		this.categorias = obj.getCategorias();
+		List<Categoria> listCategoria = obj.getCategorias(); 
+		this.setCategoria(listCategoria.get(0).getNome());
 	}
 
 	public Integer getId() {
@@ -58,14 +64,13 @@ public class ProdutoDTO implements Serializable{
 		this.preco = preco;
 	}
 
-	public List<Categoria> getCategorias() {
-		return categorias;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
-	
-	
+
 
 }
