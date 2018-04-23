@@ -34,9 +34,6 @@ public class ClienteService {
 	private ClienteRepository repo;
 	
 	@Autowired
-	private CidadeRepository cidadeRepository;
-	
-	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
@@ -87,7 +84,7 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {		
 		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()));
-		Cidade cid = cidadeRepository.findOne(objDto.getCidadeId());
+		Cidade cid = new Cidade(objDto.getCidadeId(),null,null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
 		cli.getEnderecos().add(end);
 		cli.getTelefones().add(objDto.getTelefone1());
