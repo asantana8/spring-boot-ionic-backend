@@ -2,22 +2,27 @@ package com.asantana.cursomc.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.asantana.cursomc.domain.Cliente;
 import com.asantana.cursomc.domain.Endereco;
+import com.asantana.cursomc.domain.ItemPedido;
 import com.asantana.cursomc.domain.Pagamento;
 import com.asantana.cursomc.domain.Pedido;
 
-public class PedidoDTO implements Serializable{
+public class PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
 	private Date instante;
 	private Pagamento pagamento;
 	private Cliente cliente;
 	private Endereco enderecoDeEntrega;
-	
-	public PedidoDTO() {		
+	private Set<ItemPedido> itens = new HashSet<>();
+
+	public PedidoDTO() {
+
 	}
 
 	public PedidoDTO(Integer id, Date instante, Pagamento pagamento, Cliente cliente, Endereco enderecoDeEntrega) {
@@ -28,7 +33,7 @@ public class PedidoDTO implements Serializable{
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
-	
+
 	public PedidoDTO(Pedido obj) {
 		super();
 		this.id = obj.getId();
@@ -77,7 +82,21 @@ public class PedidoDTO implements Serializable{
 	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
-	
-	
+
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
+	public double GetTotal() {
+		double soma = 0.0;
+		for (ItemPedido ip : itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
+	}
 
 }

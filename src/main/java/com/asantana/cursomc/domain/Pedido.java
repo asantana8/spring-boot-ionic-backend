@@ -14,42 +14,44 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Pedido  implements Serializable{
+@Table(name = "pedido_acs")
+public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
+
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date instante;
-	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
-	
+
 	@ManyToOne
-	@JoinColumn(name="cliente_id")
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	
+
 	@ManyToOne
-	@JoinColumn(name="endereco_de_entrega_id")
+	@JoinColumn(name = "endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
-	
-	@OneToMany(mappedBy="id.pedido")
+
+	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
-	
+
 	public Pedido() {
-		
+
 	}
 
 	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
-		this.instante = instante;		
+		this.instante = instante;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
@@ -94,6 +96,14 @@ public class Pedido  implements Serializable{
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
+	public double getTotal() {
+		double soma = 0.0;
+		for (ItemPedido ip : itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,6 +136,5 @@ public class Pedido  implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
 }
